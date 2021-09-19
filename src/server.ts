@@ -1,5 +1,3 @@
-/// <reference path="env.d.ts" />
-
 import config from './labels.json';
 import express from 'express';
 import dotenv from 'dotenv';
