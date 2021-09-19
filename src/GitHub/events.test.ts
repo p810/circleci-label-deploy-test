@@ -41,7 +41,7 @@ describe('hasAnExpectedLabel()', () => {
 });
 
 describe('getParametersByLabels()', () => {
-  it('should return an empty array if there are no matching labels', () => {
+  it('should return an empty object if there are no matching labels', () => {
     expect(getParametersByLabels(mockLabels, config)).toEqual({});
   });
 
