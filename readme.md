@@ -25,6 +25,7 @@ Following that any of the following commands should work:
 | `yarn run dev`   | Runs the web server and automatically recompiles when source files are changed |
 | `yarn run build` | Builds the project and outputs it at `dist/index.js`                           |
 | `yarn run serve` | Runs the app after it's been built                                             |
+| `yarn run test`  | Runs the test suite for the app                                                |
 
 By default the server listens on port `7890`.
 
