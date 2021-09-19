@@ -6,13 +6,13 @@ parameters:
     default: false
 
 jobs:
-  greet_world:
+  - greet_world:
     machine:
       image: ubuntu-2004:202010-01
       steps:
         - run: echo "Hello, world!"
 
-  greet_universe:
+  - greet_universe:
     machine:
       image: ubuntu-2004:202010-01
       steps:
