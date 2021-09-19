@@ -7,13 +7,13 @@ jobs:
   greet_world:
     machine:
       image: ubuntu-2004:202010-01
-      steps:
-        - run: echo "Hello, world!"
+    steps:
+      - run: echo "Hello, world!"
   greet_universe:
     machine:
       image: ubuntu-2004:202010-01
-      steps:
-        - run: echo "Hello, universe!"
+    steps:
+      - run: echo "Hello, universe!"
 workflows:
   version: 2
   says_hello_world:
