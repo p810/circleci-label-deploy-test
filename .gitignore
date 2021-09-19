@@ -1,2 +1,6 @@
 node_modules/
+.vscode/
+dist/**/*
+!dist/.gitkeep
 .env
+yarn-error.log
