@@ -7,9 +7,9 @@ import {
   isValidAction,
   hasAnExpectedLabel,
   getParametersByLabels,
-  hasValidSignature,
   getDataFromEvent,
-} from './GitHub';
+} from './GitHub/events';
+import { getSignatureHeaderName, isSignatureValid } from './GitHub/webhooks';
 import { triggerPipeline } from './CircleCI';
 
 dotenv.config();
@@ -19,7 +19,7 @@ app.use(express.json());
 
 const circleToken = process.env.CIRCLE_CI_TOKEN ?? '';
 const webhookSecret = process.env.GITHUB_WEBHOOK_SECRET ?? '';
-const algo = process.env.GITHUB_WEBHOOK_ALGORITHM ?? 'sha1';
+const algo = process.env.GITHUB_WEBHOOK_ALGORITHM?.toLowerCase() as 'sha1' | 'sha256' ?? 'sha1';
 
 const labelNames = Object.keys(config);
 
@@ -31,15 +31,14 @@ app.post('/', async (req, res) => {
     branch,
   } = getDataFromEvent(req.body);
 
-  const signatureIsValid = hasValidSignature(
-    algo,
-    webhookSecret,
-    JSON.stringify(req.body),
-    req.header('x-hub-signature') ?? '',
-  );
+  const signature = req.header(getSignatureHeaderName(algo)) ?? '';
+
+  const payload = JSON.stringify(req.body);
+
+  const hasValidSignature = isSignatureValid(signature, webhookSecret, payload, algo);
 
   if (
-    signatureIsValid &&
+    hasValidSignature &&
     isValidAction(action) &&
     hasAnExpectedLabel(labels, labelNames)
   ) {

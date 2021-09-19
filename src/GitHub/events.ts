@@ -1,5 +1,4 @@
 import { Label, PullRequestEvent } from '@octokit/webhooks-types';
-import { createHmac } from 'crypto';
 
 type LabelToParams = Record<string, {[key: string]: any}>;
 
@@ -20,19 +19,6 @@ export const isValidAction = (action: string) =>
 
 export const hasAnExpectedLabel = (labels: Label[], expectedLabels: string[]) =>
   labels.some(l => expectedLabels.some(label => l.name === label));
-
-export const hasValidSignature = (
-  algorithm: 'sha1' | 'sha256',
-  token: string,
-  payload: string,
-  signature: string
-) => {
-  const digest = createHmac(algorithm, token)
-    .update(payload)
-    .digest('hex');
-
-  return signature === `${algorithm}=${digest}`;
-};
 
 export const getDataFromEvent = (event: PullRequestEvent) => ({
   action: event?.action ?? '',
