@@ -14,8 +14,6 @@ jobs:
       image: ubuntu-2004:202010-01
     steps:
       - run: echo "Hello, universe!"
-      - unless:
-        condition: << pipeline.parameters.trigger_world_greeting >>
 workflows:
   version: 2
   says_hello_world:
@@ -28,3 +26,4 @@ workflows:
   says_hello_universe:
     jobs:
       - greet_universe
+    unless: << pipeline.parameters.trigger_world_greeting >>
