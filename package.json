@@ -28,7 +28,7 @@
   },
   "scripts": {
     "dev": "ts-node-dev ./src/server.ts",
-    "build": "ncc build ./src/server.ts -o dist",
+    "build": "ncc build ./src/server.ts -m -o dist",
     "serve": "node ./dist/index.js",
     "test": "jest"
   }
